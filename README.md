@@ -43,7 +43,7 @@ DNS=10.0.0.10
 
 it is assumed you have systemd and that your user is in the docker group.
 
-place [etcd2.service](systemd/user/etcd2.service), [skydns.service](systemd/user/skydns.service), [anchor.service](systemd/usr/anchor.service) in
+place [etcd2.service](systemd/user/etcd2.service), [skydns.service](systemd/user/skydns.service), [anchor.service](systemd/user/anchor.service) in
 `~/.config/systemd/user/` and run
 
 	systemctl --user daemon-reload
