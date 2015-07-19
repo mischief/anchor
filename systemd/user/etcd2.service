@@ -1,0 +1,20 @@
+[Unit]
+Description=distributed key-value store
+Documentation=https://coreos.com/etcd/docs/2.0.13/
+Documentation=https://github.com/coreos/etcd
+
+[Service]
+Restart=always
+RestartSec=10s
+SyslogIdentifier=%p
+ExecStartPre=/bin/mkdir -p %t/%p
+
+ExecStartPre=-/usr/bin/docker kill %n
+ExecStartPre=-/usr/bin/docker rm -f %n
+ExecStartPre=-/usr/bin/docker pull quay.io/coreos/etcd:v2.0.13
+ExecStart=/usr/bin/docker run --rm --name %n -p 2379:2379 -v %t/%p:%t/%p -v /usr/share/ca-certificates/:/etc/ssl/certs quay.io/coreos/etcd:v2.0.13 \
+        --data-dir %t/%p --name %m \
+        --advertise-client-urls http://172.17.42.1:2379 \
+        --listen-client-urls http://0.0.0.0:2379
+ExecStop=-/usr/bin/docker stop %n
+

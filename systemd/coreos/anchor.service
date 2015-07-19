@@ -1,0 +1,25 @@
+[Unit]
+Description=anchor
+Documentation=https://github.com/mischief/anchor
+
+Requires=docker.service etcd2.service
+After=docker.service etcd2.service
+
+[Service]
+EnvironmentFile=/etc/environment
+SyslogIdentifier=%p
+Restart=always
+RestartSec=10s
+
+ExecStartPre=-/usr/bin/docker kill %n
+ExecStartPre=-/usr/bin/docker rm -f %n 
+ExecStartPre=/usr/bin/docker pull mischief/anchor:latest
+ExecStart=/bin/sh -c "/usr/bin/docker run --name %n --rm \
+	-e SKYDOCK_MACHINES=http://${COREOS_PRIVATE_IPV4}:2379 \
+	-v /var/run/docker.sock:/var/run/docker.sock \
+	mischief/anchor"
+ExecStop=-/usr/bin/docker stop %n
+
+[X-Fleet]
+Global=true
+
