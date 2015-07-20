@@ -49,7 +49,7 @@ place [etcd2.service](systemd/user/etcd2.service), [skydns.service](systemd/user
 	systemctl --user daemon-reload
 	systemctl --user start anchor.service
 
-then add 127.0.0.1 to your list of dns servers, e.g. in `/etc/resolv.conf.head`.
+then add the docker bridge ip (e.g. 172.17.42.1) to your list of dns servers, e.g. in `/etc/resolv.conf.head`.
 
 ### using it
 
@@ -61,7 +61,7 @@ run a few servers and give them a moment to register in skydns:
 
 now resolve their addresses:
 
-	dig @127.0.0.1 apache.dev.skydns.local
+	dig @172.17.42.1 apache.dev.skydns.local
 
 and you will see something like...
 
