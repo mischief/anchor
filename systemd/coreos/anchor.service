@@ -17,7 +17,7 @@ ExecStartPre=/usr/bin/docker pull mischief/anchor:latest
 ExecStart=/bin/sh -c "/usr/bin/docker run --name %n --rm \
 	-e SKYDOCK_MACHINES=http://${COREOS_PRIVATE_IPV4}:2379 \
 	-v /var/run/docker.sock:/var/run/docker.sock \
-	mischief/anchor"
+	mischief/anchor:latest"
 ExecStop=-/usr/bin/docker stop %n
 
 [X-Fleet]

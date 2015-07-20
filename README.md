@@ -82,5 +82,5 @@ cleanup the docker containers:
 notice that they have been unregistered by *anchor*:
 
 	$ dig @127.0.0.1 apache.dev.skydns.local +short
-	$ 
+	$
 
