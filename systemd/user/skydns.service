@@ -10,7 +10,7 @@ SyslogIdentifier=%p
 Restart=always
 ExecStartPre=-/usr/bin/docker kill %n
 ExecStartPre=-/usr/bin/docker rm -f %n
-ExecStartPre=-/usr/bin/docker pull mischief/skydns:latest
-ExecStart=/bin/sh -c "exec /usr/bin/docker run --name %n --rm -p 127.0.0.1:53:53/udp -p 172.17.42.1:53:53/udp mischief/skydns:latest -addr 0.0.0.0:53 -machines http://172.17.42.1:2379"
+ExecStartPre=-/usr/bin/docker pull skynetservices/skydns:2.5.2a
+ExecStart=/bin/sh -c "exec /usr/bin/docker run --name %n --rm -p 127.0.0.1:53:53/udp -p 172.17.42.1:53:53/udp skynetservices/skydns:2.5.2a -addr 0.0.0.0:53 -machines http://172.17.42.1:2379"
 ExecStop=-/usr/bin/docker stop %n
 
